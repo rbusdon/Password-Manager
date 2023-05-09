@@ -9,20 +9,16 @@ namespace ProgramFirstFunction.CheckerPassword
     public abstract class PasswordDecorator : ICheckerPassword
     {
         private readonly ICheckerPassword _passwordValidator;
-        protected readonly string Password;
         protected string MyErrorMessage = string.Empty;
 
-        protected PasswordDecorator(ICheckerPassword passwordValidator, string password)
+        protected PasswordDecorator(ICheckerPassword passwordValidator)
         {
             _passwordValidator = passwordValidator;
-            Password = password;
         }
 
-        public bool IsValid() => _passwordValidator.IsValid() && MyValidator();
+        public bool IsValid(string password) => _passwordValidator.IsValid(password) && MyValidator(password);
 
-        public string ErrorMessage() =>
-            !MyValidator() ? $"{_passwordValidator.ErrorMessage()}{Environment.NewLine}{MyErrorMessage}" : _passwordValidator.ErrorMessage();
-        protected abstract bool MyValidator();
-
+        public virtual string ErrorMessage() => MyErrorMessage;
+        protected abstract bool MyValidator(string password);
     }
 }

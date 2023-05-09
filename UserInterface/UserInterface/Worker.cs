@@ -1,4 +1,5 @@
 ﻿using DatabaseManager.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProgramFirstFunction;
@@ -14,11 +15,16 @@ namespace UserInterface
             //var MyConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             return Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
+                ICheckerPassword passwordChecker = new CheckerPassword();
+                passwordChecker = new CheckerPasswordLenght(passwordChecker);
+                passwordChecker = new CheckerPasswordNumber(passwordChecker);
+                passwordChecker = new CheckerPasswordUpper(passwordChecker);
+                services.AddTransient<ICheckerPassword>(_ => new CheckerPasswordSpecialChar(passwordChecker));
                 services.AddTransient<ICreateAccount, CreateAccount>();
                 services.AddTransient<IUserRepository, UserRepository>();
-                services.AddTransient<ICheckerPassword, CheckerPassword>();
                 services.AddTransient<ICheckerUsername, CheckerUsername>();
-                services.AddTransient<UsersAccountContext>();
+                //services.AddTransient<CheckerPasswordHandler>();
+                services.AddDbContext<UsersAccountContext>(options => options.UseSqlServer("Data Source=localhost;Initial Catalog=UsersAccount; User Id=sa; Password=Eur66Bag; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;"));
                 services.AddTransient<UserCommands>();
                 services.AddTransient<ConsoleCommands>();
                 services.AddHostedService<App>();

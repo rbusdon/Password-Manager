@@ -9,15 +9,15 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordSpecialChar : PasswordDecorator
     {
-        public CheckerPasswordSpecialChar(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordSpecialChar(ICheckerPassword passwordValidator) : base(passwordValidator)
         {
             MyErrorMessage = "Password must be at least one special char";
         }
-        protected override bool MyValidator()
+        protected override bool MyValidator(string password)
         {
             Regex regex = new Regex("^[a-zA-Z0-9 ]*$");
 
-            if (regex.IsMatch(Password))
+            if (regex.IsMatch(password))
             {
                 return true;
             }

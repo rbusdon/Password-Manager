@@ -11,20 +11,17 @@ namespace ProgramFirstFunction
 {
     public class CheckerUsername : ICheckerUsername
     {
-        private readonly string _username;
-        public CheckerUsername(string username)
+        private readonly UsersAccountContext _context;
+        private readonly UserRepository _userRepository;
+        public CheckerUsername(UsersAccountContext context, UserRepository userRepository)
         {
-            _username = username;
+            _context = context;
+            _userRepository = userRepository;
         }
         public string ErrorMessage()
         {
             throw new NotImplementedException();
         }
-        public bool IsValid()
-        {
-            var dbContext = new UsersAccountContext();
-            var dbManager = new UserRepository(dbContext);
-            return dbManager.IsNameValid(_username);
-        }
+        public bool IsValid(string username) => _userRepository.IsNameValid(username);
     }
 }

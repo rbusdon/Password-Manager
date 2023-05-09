@@ -8,7 +8,7 @@ namespace ProgramFirstFunction
 {
     public interface IChecker
     {
-        bool IsValid();
+        bool IsValid(string input);
         string ErrorMessage();
     }
 }

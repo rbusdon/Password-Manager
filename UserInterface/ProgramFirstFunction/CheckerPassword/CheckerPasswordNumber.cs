@@ -9,11 +9,11 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordNumber : PasswordDecorator
     {
-        public CheckerPasswordNumber(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordNumber(ICheckerPassword passwordValidator) : base(passwordValidator)
         {
             MyErrorMessage = "Password must be at least two digit";
         }
 
-        protected override bool MyValidator() => Password.Count(char.IsNumber) > 1;
+        protected override bool MyValidator(string password) => password.Count(char.IsNumber) > 1;
     }
 }

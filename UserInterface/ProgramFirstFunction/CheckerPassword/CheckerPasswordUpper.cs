@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ProgramFirstFunction.CheckerPassword
 {
-    public class CheckerPasswordUpper : PasswordDecorator
+    public class CheckerPasswordUpper : CheckerPasswordBase
     {
-        public CheckerPasswordUpper(ICheckerPassword passwordValidator) : base(passwordValidator)
+        public CheckerPasswordUpper()
         {
             MyErrorMessage = "Password must be at least one capital letter";
         }
 
-        protected override bool MyValidator(string password) => password.Any(char.IsUpper);
+        public override (bool, string) IsValid(string password)
+        {
+            if (password.Any(char.IsUpper))
+            {
+                if (_nextChecker != null)
+                {
+                    return _nextChecker.IsValid(password);
+                }
+                return (true, string.Empty);
+            }
+            else
+            {
+                return (false, MyErrorMessage);
+            }
+        }
     }
 }

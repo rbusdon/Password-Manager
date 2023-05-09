@@ -8,9 +8,9 @@ namespace UserInterface
     {
         static void Main(string[] args)
         {
-            Worker.CreateBuilder().Build().Run();
-            //var builder = Worker.CreateBuilder().Build();
-            //builder.Services.GetService<IApp>();
+            //Worker.CreateBuilder().Build().Run();
+            var builder = Worker.CreateBuilder().Build();
+            builder.Services.GetService<IApp>().Run();
         }
     }
 }

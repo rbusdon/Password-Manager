@@ -6,12 +6,27 @@ using System.Threading.Tasks;
 
 namespace ProgramFirstFunction.CheckerPassword
 {
-    public class CheckerPasswordLenght : PasswordDecorator
+    public class CheckerPasswordLenght : CheckerPasswordBase
     {
-        public CheckerPasswordLenght(ICheckerPassword passwordValidator) : base(passwordValidator)
+        public CheckerPasswordLenght()
         {
             MyErrorMessage = "Password must be at least 8 characters";
         }
-        protected override bool MyValidator(string password) => password.Length > 7;
+
+        public override (bool, string) IsValid(string password)
+        {
+            if (password.Length > 7)
+            {
+                if (_nextChecker != null)
+                {
+                    return _nextChecker.IsValid(password);
+                }
+                return (true, string.Empty);
+            }
+            else
+            {
+                return (false, MyErrorMessage);
+            }
+        }
     }
 }

@@ -7,23 +7,26 @@ using System.Threading.Tasks;
 
 namespace ProgramFirstFunction.CheckerPassword
 {
-    public class CheckerPasswordSpecialChar : PasswordDecorator
+    public class CheckerPasswordSpecialChar : CheckerPasswordBase
     {
-        public CheckerPasswordSpecialChar(ICheckerPassword passwordValidator) : base(passwordValidator)
+        public CheckerPasswordSpecialChar()
         {
             MyErrorMessage = "Password must be at least one special char";
         }
-        protected override bool MyValidator(string password)
+        public override (bool, string) IsValid(string password)
         {
             Regex regex = new Regex("^[a-zA-Z0-9 ]*$");
-
             if (regex.IsMatch(password))
             {
-                return true;
+                if (_nextChecker != null)
+                {
+                    return _nextChecker.IsValid(password);
+                }
+                return (true, string.Empty);
             }
             else
             {
-                return false;
+                return (false, MyErrorMessage);
             }
         }
     }

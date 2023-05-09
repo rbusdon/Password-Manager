@@ -31,8 +31,8 @@ namespace ProgramFirstFunction
         private void GenerateAccount(string name, string password)
         {
             var firstCondition = _checkerUsername.IsValid(name);
-            bool secondCondition = _checkerPassword.IsValid(password);
-            if (firstCondition && secondCondition)
+            var secondCondition = _checkerPassword.IsValid(password);
+            if (firstCondition.Item1 && secondCondition.Item1)
             {
                 User newUser = new()
                 {
@@ -42,6 +42,10 @@ namespace ProgramFirstFunction
                 _userRepository.CreateAccount(newUser);
                 var newUserId = _userRepository.GetId(newUser);
                 Console.WriteLine("{newUserId}");
+            }
+            else
+            {
+                Console.WriteLine($"{firstCondition.Item2}\n{secondCondition.Item2}");
             }
         }
     }

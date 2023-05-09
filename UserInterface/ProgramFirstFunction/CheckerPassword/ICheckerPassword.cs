@@ -8,5 +8,6 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public interface ICheckerPassword : IChecker
     {
+        public void SetNext(ICheckerPassword next);
     }
 }

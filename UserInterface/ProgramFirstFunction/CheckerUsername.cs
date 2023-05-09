@@ -1,10 +1,4 @@
 ﻿using DatabaseManager.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserInterface;
 using UserInterface.Models.DB;
 
 namespace ProgramFirstFunction
@@ -13,15 +7,14 @@ namespace ProgramFirstFunction
     {
         private readonly UsersAccountContext _context;
         private readonly UserRepository _userRepository;
+        private readonly string MyErrorMessage;
         public CheckerUsername(UsersAccountContext context, UserRepository userRepository)
         {
             _context = context;
             _userRepository = userRepository;
+            MyErrorMessage = "Name not valid";
         }
-        public string ErrorMessage()
-        {
-            throw new NotImplementedException();
-        }
-        public bool IsValid(string username) => _userRepository.IsNameValid(username);
+
+        public (bool, string) IsValid(string username) => _userRepository.IsNameValid(username) ? (true, string.Empty) : (false, MyErrorMessage);
     }
 }

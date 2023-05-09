@@ -9,13 +9,12 @@ using UserInterface.Models.DB;
 
 namespace ProgramFirstFunction
 {
-    public class CheckerUsername : IChecker
+    public class CheckerUsername : ICheckerUsername
     {
-        public bool Check(string username)
+        private readonly string _username;
+        public CheckerUsername(string username)
         {
-            var dbContext = new UsersAccountContext();
-            var dbManager = new UserRepository(dbContext);
-            return dbManager.IsNameValid(username);
+            _username = username;
         }
         public string ErrorMessage()
         {
@@ -23,7 +22,9 @@ namespace ProgramFirstFunction
         }
         public bool IsValid()
         {
-            throw new NotImplementedException();
+            var dbContext = new UsersAccountContext();
+            var dbManager = new UserRepository(dbContext);
+            return dbManager.IsNameValid(_username);
         }
     }
 }

@@ -5,9 +5,20 @@ using UserInterface.Models.DB;
 
 namespace ProgramFirstFunction
 {
-    public class CreateAccount
+    public class CreateAccount : ICreateAccount
     {
-        public (string name, string password) InputInformations ()
+        private readonly IUserRepository _userRepository;
+        private readonly ICheckerPassword _checkerPassword;
+        private readonly ICheckerUsername _checkerUsername;
+
+        public CreateAccount(IUserRepository userRepository, ICheckerUsername checkerUsername, ICheckerPassword checkerPassword)
+        {
+            _userRepository = userRepository;
+            _checkerPassword = checkerPassword;
+            _checkerUsername = checkerUsername;
+        }
+
+        public (string name, string password) InputInformations()
         {
             Console.WriteLine("Insert your email address. It will function as your username.");
             var username = Console.ReadLine();
@@ -17,23 +28,19 @@ namespace ProgramFirstFunction
             GenerateAccount(username, password);
             return (username, password);
         }
-        private void GenerateAccount (string name, string password)
+        private void GenerateAccount(string name, string password)
         {
-            var userChecker = new CheckerUsername();
-            var passwordChecker = new CheckerPasswordHandler();
-            var firstCondition = userChecker.IsValid();
-            bool secondCondition = passwordChecker.GetCheck(password);
-            if (firstCondition && secondCondition == true)
+            var firstCondition = _checkerUsername.IsValid();
+            bool secondCondition = _checkerPassword.IsValid();
+            if (firstCondition && secondCondition)
             {
-                var dbContext = new UsersAccountContext();
-                var dbManager = new UserRepository(dbContext);
                 User newUser = new()
                 {
                     Name = name,
                     Password = password,
                 };
-                dbManager.CreateAccount(newUser);
-                var newUserId = dbManager.GetId(newUser);
+                _userRepository.CreateAccount(newUser);
+                var newUserId = _userRepository.GetId(newUser);
                 Console.WriteLine("{newUserId}");
             }
         }

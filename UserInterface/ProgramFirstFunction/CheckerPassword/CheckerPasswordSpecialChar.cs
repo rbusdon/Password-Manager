@@ -9,7 +9,7 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordSpecialChar : PasswordDecorator
     {
-        public CheckerPasswordSpecialChar(IChecker passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordSpecialChar(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
         {
             MyErrorMessage = "Password must be at least one special char";
         }

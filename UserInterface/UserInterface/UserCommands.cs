@@ -4,6 +4,13 @@ namespace UserInterface
 {
     public class UserCommands
     {
+        private readonly CreateAccount _createAccount;
+
+        public UserCommands(CreateAccount createAccount)
+        {
+            _createAccount = createAccount;
+        }
+
         public void Commands()
         {
             try
@@ -16,8 +23,7 @@ namespace UserInterface
                     switch (input)
                     {
                         case "1":
-                            var firstFunction = new CreateAccount();
-                            firstFunction.InputInformations();
+                            _createAccount.InputInformations();
                             break;
                         case "2":
                             //SecondFunction

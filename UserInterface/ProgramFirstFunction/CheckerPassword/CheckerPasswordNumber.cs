@@ -9,7 +9,7 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordNumber : PasswordDecorator
     {
-        public CheckerPasswordNumber(IChecker passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordNumber(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
         {
             MyErrorMessage = "Password must be at least two digit";
         }

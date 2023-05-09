@@ -1,4 +1,6 @@
-﻿using static System.Data.Entity.Infrastructure.Design.Executor;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace UserInterface
 {
@@ -6,12 +8,9 @@ namespace UserInterface
     {
         static void Main(string[] args)
         {
-            var console = new ConsoleCommands();
-            var userCommands = new UserCommands();
-            console.Start();
-            userCommands.Commands();
-            console.End();
-            Console.ReadKey();
+            Worker.CreateBuilder().Build().Run();
+            //var builder = Worker.CreateBuilder().Build();
+            //builder.Services.GetService<IApp>();
         }
     }
 }

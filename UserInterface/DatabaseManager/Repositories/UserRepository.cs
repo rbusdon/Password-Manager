@@ -32,8 +32,7 @@ namespace DatabaseManager.Repositories
 
         public bool IsNameValid(string name) => _accountDBContext.Users.Any(p => p.Name == name);
         public bool IsIdValid(int id) => _accountDBContext.Users.Any(p => p.Id == id);
-        public int GetId(User user)
-            => _accountDBContext.Users.First(p => p.Name == user.Name).Id;
+        public int GetId(User user) => _accountDBContext.Users.First(p => p.Name == user.Name).Id;
         public User? GetUser(int Id) => _accountDBContext.Users.FirstOrDefault(p => p.Id == Id);
     }
 }

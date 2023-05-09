@@ -1,6 +1,6 @@
 ﻿namespace ProgramFirstFunction.CheckerPassword
 {
-    public class CheckerPassword : IChecker
+    public class CheckerPassword : ICheckerPassword
     {
         private readonly string _password;
 
@@ -10,7 +10,6 @@
         }
         public bool IsValid() => !string.IsNullOrWhiteSpace(_password);
         public string ErrorMessage() => IsValid() ? string.Empty : "Password is Empty";
-        public bool Check(string password) => throw new NotImplementedException();
 
         //public static bool IsStrongPassword(string password)
         //{

@@ -4,10 +4,10 @@ namespace DatabaseManager.Repositories
 {
     public interface IUserRepository
     {
-        public void CreateAccount(User user);
         public bool IsNameValid(string email);
-        public bool IsIdValid(int id);
+        public void CreateAccount(User user);
         public int GetId(User user);
+        public bool IsIdValid(int id);
         public User? GetUser(int id);
     }
 }

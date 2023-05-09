@@ -8,7 +8,7 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordUpper : PasswordDecorator
     {
-        public CheckerPasswordUpper(IChecker passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordUpper(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
         {
             MyErrorMessage = "Password must be at least one capital letter";
         }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProgramFirstFunction.CheckerPassword
 {
-    public abstract class PasswordDecorator : IChecker
+    public abstract class PasswordDecorator : ICheckerPassword
     {
-        private readonly IChecker _passwordValidator;
+        private readonly ICheckerPassword _passwordValidator;
         protected readonly string Password;
         protected string MyErrorMessage = string.Empty;
 
-        protected PasswordDecorator(IChecker passwordValidator, string password)
+        protected PasswordDecorator(ICheckerPassword passwordValidator, string password)
         {
             _passwordValidator = passwordValidator;
             Password = password;

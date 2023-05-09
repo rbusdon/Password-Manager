@@ -10,7 +10,7 @@ namespace ProgramFirstFunction.CheckerPassword
     {
         public bool GetCheck(string password)
         {
-            IChecker checker = Init(password);
+            ICheckerPassword checker = Init(password);
             return checker.IsValid();
         }
         //public static (bool, string) GetResponse(string password)
@@ -18,9 +18,9 @@ namespace ProgramFirstFunction.CheckerPassword
         //    IChecker checker = Init(password);
         //    return (checker.IsValid(), checker.ErrorMessage());
         //}
-        private static IChecker Init(string password)
+        private static ICheckerPassword Init(string password)
         {
-            IChecker passwordChecker = new CheckerPassword(password);
+            ICheckerPassword passwordChecker = new CheckerPassword(password);
             passwordChecker = new CheckerPasswordLenght(passwordChecker, password);
             passwordChecker = new CheckerPasswordNumber(passwordChecker, password);
             passwordChecker = new CheckerPasswordUpper(passwordChecker, password);

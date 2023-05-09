@@ -8,7 +8,7 @@ namespace ProgramFirstFunction.CheckerPassword
 {
     public class CheckerPasswordLenght : PasswordDecorator
     {
-        public CheckerPasswordLenght(IChecker passwordValidator, string password) : base(passwordValidator, password)
+        public CheckerPasswordLenght(ICheckerPassword passwordValidator, string password) : base(passwordValidator, password)
         {
             MyErrorMessage = "Password must be at least 8 characters";
         }

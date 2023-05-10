@@ -4,9 +4,9 @@ namespace UserInterface
 {
     public class UserCommands
     {
-        private readonly CreateAccount _createAccount;
+        private readonly ICreateAccount _createAccount;
 
-        public UserCommands(CreateAccount createAccount)
+        public UserCommands(ICreateAccount createAccount)
         {
             _createAccount = createAccount;
         }

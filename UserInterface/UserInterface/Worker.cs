@@ -15,22 +15,24 @@ namespace UserInterface
             //var MyConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             return Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
-                ICheckerPassword passwordCheckerLenght = new CheckerPasswordLenght();
-                ICheckerPassword passwordCheckerNumber = new CheckerPasswordNumber();
-                ICheckerPassword passwordCheckerUpper = new CheckerPasswordUpper();
-                ICheckerPassword passwordCheckerSpecialChar = new CheckerPasswordSpecialChar();
-                passwordCheckerLenght.SetNext(passwordCheckerNumber);
-                passwordCheckerNumber.SetNext(passwordCheckerUpper);
-                passwordCheckerUpper.SetNext(passwordCheckerSpecialChar);
-                services.AddTransient<ICheckerPassword>(_ => passwordCheckerLenght);
                 services.AddTransient<ICreateAccount, CreateAccount>();
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<ICheckerUsername, CheckerUsername>();
                 services.AddDbContext<UsersAccountContext>(options => options.UseSqlServer("Data Source=localhost;Initial Catalog=UsersAccount; User Id=sa; Password=Eur66Bag; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;"));
                 services.AddTransient<UserCommands>();
                 services.AddTransient<ConsoleCommands>();
-                services.AddHostedService<App>();
                 services.AddScoped<IApp, App>();
+                services.AddSingleton<ICheckerPassword>(_ =>
+                {
+                    var passwordCheckerLenght = new CheckerPasswordLenght();
+                    var passwordCheckerNumber = new CheckerPasswordNumber();
+                    var passwordCheckerUpper = new CheckerPasswordUpper();
+                    var passwordCheckerSpecialChar = new CheckerPasswordSpecialChar();
+                    passwordCheckerLenght.SetNext(passwordCheckerNumber);
+                    passwordCheckerNumber.SetNext(passwordCheckerUpper);
+                    passwordCheckerUpper.SetNext(passwordCheckerSpecialChar);
+                    return passwordCheckerLenght;
+                });
             });
         }
     }

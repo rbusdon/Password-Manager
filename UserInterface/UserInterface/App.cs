@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UserInterface
 {
-    public class App : IApp, IHostedService
+    public class App : IApp
     {
         private readonly UserCommands _commands;
         private readonly ConsoleCommands _commandsConsole;
@@ -19,18 +19,11 @@ namespace UserInterface
 
         public void Run()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
             _commandsConsole.Start();
             _commands.Commands();
             _commandsConsole.End();
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-        }
+ 
     }
 }
